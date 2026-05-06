@@ -434,6 +434,46 @@
     margin-top: 7px;
   }
 
+  /* DARK SECTION QUESTION OVERRIDES */
+  .dark-section .q-item { color: rgba(255,255,255,0.8); border-bottom-color: rgba(255,255,255,0.07); }
+  .dark-section .q-item:last-child { border-bottom: none; }
+  .dark-section .q-group-label { color: rgba(255,255,255,0.35); border-bottom-color: rgba(255,255,255,0.12); }
+  .dark-section .q-dot { border-color: rgba(255,255,255,0.15); }
+
+  /* OUTCOMES SECTION */
+  .outcomes-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+    gap: 20px;
+    margin-top: 48px;
+  }
+  .outcome-card {
+    background: var(--black);
+    border-radius: 14px;
+    padding: 32px 28px;
+    position: relative;
+    overflow: hidden;
+  }
+  .outcome-card::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0; right: 0;
+    height: 3px;
+    background: var(--yellow);
+    border-radius: 14px 14px 0 0;
+  }
+  .outcome-num {
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    color: var(--yellow);
+    opacity: 0.7;
+    margin-bottom: 12px;
+  }
+  .outcome-card h3 { font-size: 18px; font-weight: 700; color: #fff; margin-bottom: 10px; }
+  .outcome-card p { font-size: 14px; color: rgba(255,255,255,0.6); line-height: 1.65; }
+
   /* FOOTER */
   footer {
     background: var(--black);
@@ -506,6 +546,7 @@
 <nav>
   <div class="nav-logo">BBD Boom <span>× Mash Media</span></div>
   <ul class="nav-links">
+    <li><a href="#outcomes">Outcomes</a></li>
     <li><a href="#summary">Summary</a></li>
     <li><a href="#scores">Scores</a></li>
     <li><a href="#findings">Findings</a></li>
@@ -537,6 +578,36 @@
     </div>
   </div>
 </div>
+
+<!-- OUTCOMES -->
+<section style="background: #fff;" id="outcomes">
+  <div class="section-label">What This Work Delivers</div>
+  <h2>The outcomes we're<br>here to achieve.</h2>
+  <p class="section-intro">This audit is the starting point. The goal is to leave Mash Media with a HubSpot environment that is trusted, governed, and capable of supporting commercial growth at scale — across events, publishing, sponsorship and beyond.</p>
+
+  <div class="outcomes-grid">
+    <div class="outcome-card fade-in">
+      <div class="outcome-num">Outcome 01</div>
+      <h3>A pipeline leadership can trust</h3>
+      <p>Every active deal owned, valued, dated and associated. Leadership has a real-time view of commercial position — not a best guess from an ungoverned spreadsheet.</p>
+    </div>
+    <div class="outcome-card fade-in">
+      <div class="outcome-num">Outcome 02</div>
+      <h3>Marketing that proves its value</h3>
+      <p>Campaigns, attribution and segmentation governed from the ground up. Not just sends and opens — influenced contacts, pipeline created, and revenue driven.</p>
+    </div>
+    <div class="outcome-card fade-in">
+      <div class="outcome-num">Outcome 03</div>
+      <h3>A platform ready to scale</h3>
+      <p>Automation rationalised, AI embedded inside governed workflows, and an architecture that can absorb ExpoFP, Xero and future event-commerce without compounding existing risk.</p>
+    </div>
+    <div class="outcome-card fade-in">
+      <div class="outcome-num">Outcome 04</div>
+      <h3>A team that actually uses it</h3>
+      <p>Adoption, training and governance built in from day one — not retrofitted. HubSpot becomes the system sales and marketing rely on, not work around.</p>
+    </div>
+  </div>
+</section>
 
 <!-- SCORE STRIP -->
 <div class="score-strip" id="scores">
