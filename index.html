@@ -1,0 +1,974 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Mash Media — Strategic HubSpot Audit | BBD Boom</title>
+<link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  :root {
+    --yellow: #FEF5AC;
+    --blue: #DAEAFF;
+    --green: #EAFDD6;
+    --beige: #ECECE7;
+    --black: #010103;
+    --gray: #4a4a4a;
+    --light-gray: #888;
+    --red: #FF6B6B;
+    --amber: #FFB347;
+  }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    font-family: 'Outfit', sans-serif;
+    background: #fff;
+    color: var(--black);
+    line-height: 1.6;
+    font-size: 16px;
+  }
+
+  /* NAV */
+  nav {
+    position: fixed;
+    top: 0; left: 0; right: 0;
+    z-index: 100;
+    background: var(--black);
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0 40px;
+    height: 56px;
+    border-bottom: 1px solid rgba(255,255,255,0.08);
+  }
+  .nav-logo {
+    color: #fff;
+    font-size: 14px;
+    font-weight: 600;
+    letter-spacing: 0.5px;
+  }
+  .nav-logo span { color: var(--yellow); }
+  .nav-links {
+    display: flex;
+    gap: 28px;
+    list-style: none;
+  }
+  .nav-links a {
+    color: rgba(255,255,255,0.6);
+    text-decoration: none;
+    font-size: 12px;
+    font-weight: 500;
+    letter-spacing: 0.5px;
+    text-transform: uppercase;
+    transition: color 0.2s;
+  }
+  .nav-links a:hover { color: var(--yellow); }
+
+  /* HERO */
+  .hero {
+    background: var(--black);
+    padding: 140px 60px 100px;
+    text-align: center;
+    position: relative;
+    overflow: hidden;
+  }
+  .hero::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: radial-gradient(ellipse at 50% 0%, rgba(254,245,172,0.08) 0%, transparent 70%);
+    pointer-events: none;
+  }
+  .hero-label {
+    display: inline-block;
+    background: rgba(254,245,172,0.12);
+    border: 1px solid rgba(254,245,172,0.25);
+    color: var(--yellow);
+    font-size: 11px;
+    font-weight: 600;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    padding: 6px 16px;
+    border-radius: 100px;
+    margin-bottom: 32px;
+  }
+  .hero h1 {
+    font-size: clamp(40px, 5vw, 68px);
+    font-weight: 700;
+    color: #fff;
+    line-height: 1.1;
+    margin-bottom: 20px;
+  }
+  .hero h1 em {
+    font-style: italic;
+    color: var(--yellow);
+  }
+  .hero-sub {
+    font-size: 18px;
+    color: rgba(255,255,255,0.55);
+    max-width: 560px;
+    margin: 0 auto 48px;
+  }
+  .hero-meta {
+    display: flex;
+    justify-content: center;
+    gap: 40px;
+    flex-wrap: wrap;
+  }
+  .hero-meta-item {
+    text-align: center;
+  }
+  .hero-meta-item .label {
+    font-size: 11px;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    color: rgba(255,255,255,0.35);
+    margin-bottom: 4px;
+  }
+  .hero-meta-item .value {
+    font-size: 14px;
+    font-weight: 600;
+    color: rgba(255,255,255,0.85);
+  }
+
+  /* SCORE STRIP */
+  .score-strip {
+    background: var(--beige);
+    padding: 48px 60px;
+    display: grid;
+    grid-template-columns: repeat(5, 1fr);
+    gap: 20px;
+  }
+  .score-card {
+    background: #fff;
+    border-radius: 12px;
+    padding: 24px 20px;
+    text-align: center;
+    border: 1px solid rgba(0,0,0,0.06);
+    transition: transform 0.2s, box-shadow 0.2s;
+  }
+  .score-card:hover { transform: translateY(-3px); box-shadow: 0 8px 24px rgba(0,0,0,0.08); }
+  .score-card .score-label {
+    font-size: 11px;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    color: var(--light-gray);
+    margin-bottom: 10px;
+  }
+  .score-card .score-number {
+    font-size: 48px;
+    font-weight: 700;
+    line-height: 1;
+    margin-bottom: 6px;
+  }
+  .score-card .score-trend {
+    font-size: 12px;
+    font-weight: 500;
+  }
+  .score-good { color: #3BAF6E; }
+  .score-mid { color: #F0A500; }
+  .score-low { color: #E53935; }
+  .trend-down { color: #E53935; }
+  .trend-up { color: #3BAF6E; }
+
+  /* SECTION BASE */
+  section { padding: 80px 60px; }
+  .section-label {
+    font-size: 11px;
+    font-weight: 600;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    margin-bottom: 12px;
+    opacity: 0.5;
+  }
+  h2 {
+    font-size: clamp(28px, 3vw, 42px);
+    font-weight: 700;
+    line-height: 1.15;
+    margin-bottom: 16px;
+  }
+  .section-intro {
+    font-size: 17px;
+    color: var(--gray);
+    max-width: 680px;
+    margin-bottom: 48px;
+    line-height: 1.7;
+  }
+
+  /* CONCLUSION BOX */
+  .conclusion {
+    background: var(--black);
+    color: #fff;
+    padding: 80px 60px;
+  }
+  .conclusion-box {
+    background: rgba(254,245,172,0.08);
+    border: 1px solid rgba(254,245,172,0.2);
+    border-radius: 16px;
+    padding: 40px 48px;
+    max-width: 860px;
+    margin: 0 auto;
+    text-align: center;
+  }
+  .conclusion-box .conclusion-label {
+    font-size: 11px;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    color: var(--yellow);
+    margin-bottom: 16px;
+    font-weight: 600;
+  }
+  .conclusion-box p {
+    font-size: 19px;
+    line-height: 1.7;
+    color: rgba(255,255,255,0.88);
+  }
+  .conclusion-box p strong { color: var(--yellow); }
+
+  /* FINDINGS GRID */
+  .findings-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(340px, 1fr));
+    gap: 20px;
+  }
+  .finding-card {
+    background: #fff;
+    border: 1px solid rgba(0,0,0,0.08);
+    border-radius: 14px;
+    padding: 28px;
+    transition: transform 0.2s, box-shadow 0.2s;
+    position: relative;
+    overflow: hidden;
+  }
+  .finding-card:hover { transform: translateY(-3px); box-shadow: 0 10px 32px rgba(0,0,0,0.09); }
+  .finding-card::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0; right: 0;
+    height: 3px;
+    border-radius: 14px 14px 0 0;
+  }
+  .finding-card.risk::before { background: #E53935; }
+  .finding-card.warning::before { background: #F0A500; }
+  .finding-card.opportunity::before { background: #3BAF6E; }
+  .finding-tag {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    font-size: 11px;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    padding: 4px 10px;
+    border-radius: 100px;
+    margin-bottom: 14px;
+  }
+  .tag-risk { background: #FFEBEE; color: #C62828; }
+  .tag-warning { background: #FFF8E1; color: #E65100; }
+  .tag-opportunity { background: #E8F5E9; color: #2E7D32; }
+  .finding-card h3 { font-size: 17px; font-weight: 700; margin-bottom: 10px; }
+  .finding-card p { font-size: 14px; color: var(--gray); line-height: 1.6; }
+  .finding-metric {
+    margin-top: 14px;
+    padding-top: 14px;
+    border-top: 1px solid rgba(0,0,0,0.07);
+    font-size: 13px;
+    color: var(--light-gray);
+  }
+  .finding-metric strong { color: var(--black); font-weight: 700; }
+
+  /* DATA TABLE */
+  .data-table-wrap {
+    overflow-x: auto;
+    border-radius: 12px;
+    border: 1px solid rgba(0,0,0,0.08);
+    margin-bottom: 32px;
+  }
+  table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 14px;
+  }
+  thead {
+    background: var(--black);
+    color: #fff;
+  }
+  thead th {
+    padding: 14px 20px;
+    text-align: left;
+    font-weight: 600;
+    font-size: 12px;
+    letter-spacing: 0.5px;
+  }
+  tbody tr { border-bottom: 1px solid rgba(0,0,0,0.06); }
+  tbody tr:last-child { border-bottom: none; }
+  tbody tr:hover { background: var(--beige); }
+  tbody td { padding: 14px 20px; color: var(--gray); vertical-align: top; }
+  tbody td:first-child { font-weight: 600; color: var(--black); }
+  .metric-highlight { font-weight: 700; color: #E53935; }
+
+  /* PHASE CARDS */
+  .phase-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+    gap: 20px;
+  }
+  .phase-card {
+    border-radius: 14px;
+    padding: 32px 28px;
+    border: 1px solid rgba(0,0,0,0.08);
+    transition: transform 0.2s, box-shadow 0.2s;
+  }
+  .phase-card:hover { transform: translateY(-3px); box-shadow: 0 10px 32px rgba(0,0,0,0.09); }
+  .phase-card.phase1 { background: var(--yellow); }
+  .phase-card.phase2 { background: var(--blue); }
+  .phase-number {
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    opacity: 0.5;
+    margin-bottom: 10px;
+  }
+  .phase-card h3 { font-size: 20px; font-weight: 700; margin-bottom: 16px; }
+  .phase-card ul { list-style: none; }
+  .phase-card ul li {
+    font-size: 14px;
+    color: var(--gray);
+    padding: 6px 0;
+    padding-left: 18px;
+    position: relative;
+    border-bottom: 1px solid rgba(0,0,0,0.06);
+  }
+  .phase-card ul li:last-child { border-bottom: none; }
+  .phase-card ul li::before {
+    content: '→';
+    position: absolute;
+    left: 0;
+    color: var(--black);
+    opacity: 0.4;
+    font-size: 12px;
+  }
+
+  /* NEXT STEPS */
+  .next-steps {
+    background: var(--black);
+    color: #fff;
+    padding: 80px 60px;
+  }
+  .steps-list {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+    gap: 20px;
+    margin-top: 48px;
+  }
+  .step-card {
+    background: rgba(255,255,255,0.05);
+    border: 1px solid rgba(255,255,255,0.08);
+    border-radius: 14px;
+    padding: 28px;
+    transition: background 0.2s;
+  }
+  .step-card:hover { background: rgba(254,245,172,0.08); }
+  .step-num {
+    width: 36px; height: 36px;
+    border-radius: 50%;
+    background: var(--yellow);
+    color: var(--black);
+    font-size: 14px;
+    font-weight: 700;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 16px;
+  }
+  .step-card h4 { font-size: 16px; font-weight: 700; color: #fff; margin-bottom: 8px; }
+  .step-card p { font-size: 13px; color: rgba(255,255,255,0.5); line-height: 1.6; }
+
+  /* PRINCIPLES */
+  .principles-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+    gap: 20px;
+  }
+  .principle-card {
+    background: var(--beige);
+    border-radius: 12px;
+    padding: 28px;
+  }
+  .principle-card h4 { font-size: 16px; font-weight: 700; margin-bottom: 10px; }
+  .principle-card p { font-size: 14px; color: var(--gray); line-height: 1.6; }
+
+  /* QUESTIONS */
+  .questions-accordion { max-width: 860px; }
+  .q-group { margin-bottom: 24px; }
+  .q-group-label {
+    font-size: 13px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    color: var(--light-gray);
+    margin-bottom: 12px;
+    padding-bottom: 8px;
+    border-bottom: 1px solid rgba(0,0,0,0.08);
+  }
+  .q-item {
+    display: flex;
+    align-items: flex-start;
+    gap: 12px;
+    padding: 12px 0;
+    border-bottom: 1px solid rgba(0,0,0,0.05);
+    font-size: 15px;
+    color: var(--gray);
+  }
+  .q-item:last-child { border-bottom: none; }
+  .q-dot {
+    width: 8px; height: 8px;
+    border-radius: 50%;
+    background: var(--yellow);
+    border: 2px solid var(--black);
+    flex-shrink: 0;
+    margin-top: 7px;
+  }
+
+  /* FOOTER */
+  footer {
+    background: var(--black);
+    color: rgba(255,255,255,0.4);
+    text-align: center;
+    padding: 40px 60px;
+    font-size: 13px;
+    border-top: 1px solid rgba(255,255,255,0.06);
+  }
+  footer a { color: var(--yellow); text-decoration: none; }
+  footer .footer-partners {
+    color: rgba(255,255,255,0.2);
+    font-size: 12px;
+    margin-top: 12px;
+    letter-spacing: 0.3px;
+  }
+
+  /* FADE IN */
+  .fade-in {
+    opacity: 0;
+    transform: translateY(24px);
+    transition: opacity 0.6s ease, transform 0.6s ease;
+  }
+  .fade-in.visible { opacity: 1; transform: translateY(0); }
+
+  /* STAT CALLOUT */
+  .stat-row {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 16px;
+    margin-bottom: 48px;
+    background: var(--beige);
+    border-radius: 16px;
+    padding: 32px;
+  }
+  .stat-item { text-align: center; }
+  .stat-item .stat-val {
+    font-size: 36px;
+    font-weight: 800;
+    line-height: 1;
+    margin-bottom: 6px;
+  }
+  .stat-item .stat-lbl {
+    font-size: 12px;
+    color: var(--light-gray);
+    font-weight: 500;
+  }
+
+  /* DARK SECTION OVERRIDES */
+  .dark-section { background: var(--black); color: #fff; }
+  .dark-section h2 { color: #fff; }
+  .dark-section .section-label { color: var(--yellow); opacity: 1; }
+  .dark-section .section-intro { color: rgba(255,255,255,0.6); }
+
+  @media (max-width: 768px) {
+    nav { padding: 0 20px; }
+    .nav-links { display: none; }
+    section { padding: 60px 24px; }
+    .score-strip { grid-template-columns: repeat(2, 1fr); padding: 40px 24px; }
+    .hero { padding: 100px 24px 60px; }
+    .stat-row { grid-template-columns: repeat(2, 1fr); }
+    .next-steps { padding: 60px 24px; }
+    .conclusion { padding: 60px 24px; }
+  }
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <div class="nav-logo">BBD Boom <span>× Mash Media</span></div>
+  <ul class="nav-links">
+    <li><a href="#summary">Summary</a></li>
+    <li><a href="#scores">Scores</a></li>
+    <li><a href="#findings">Findings</a></li>
+    <li><a href="#data">Data</a></li>
+    <li><a href="#phases">Phases</a></li>
+    <li><a href="#principles">Architecture</a></li>
+    <li><a href="#questions">Questions</a></li>
+    <li><a href="#nextsteps">Next Steps</a></li>
+  </ul>
+</nav>
+
+<!-- HERO -->
+<div class="hero">
+  <div class="hero-label">Strategic HubSpot Audit — May 2026</div>
+  <h1>Mash Media <em>HubSpot</em><br>Audit Findings</h1>
+  <p class="hero-sub">A point-in-time review of your HubSpot operating position, commercial risk, and the path to controlled, trusted growth.</p>
+  <div class="hero-meta">
+    <div class="hero-meta-item">
+      <div class="label">Prepared by</div>
+      <div class="value">BBD Boom — HubSpot Elite Partner</div>
+    </div>
+    <div class="hero-meta-item">
+      <div class="label">Date</div>
+      <div class="value">May 2026</div>
+    </div>
+    <div class="hero-meta-item">
+      <div class="label">Phase 1 Target</div>
+      <div class="value">30 June 2026 Go-Live</div>
+    </div>
+  </div>
+</div>
+
+<!-- SCORE STRIP -->
+<div class="score-strip" id="scores">
+  <div class="score-card fade-in">
+    <div class="score-label">Overall</div>
+    <div class="score-number score-mid">57</div>
+    <div class="score-trend trend-up">↑ 3% — Mid-range</div>
+  </div>
+  <div class="score-card fade-in">
+    <div class="score-label">Marketing</div>
+    <div class="score-number score-good">69</div>
+    <div class="score-trend trend-down">↓ 5% last 4 weeks</div>
+  </div>
+  <div class="score-card fade-in">
+    <div class="score-label">Sales</div>
+    <div class="score-number score-mid">53</div>
+    <div class="score-trend trend-down">↓ 12% last 4 weeks</div>
+  </div>
+  <div class="score-card fade-in">
+    <div class="score-label">Data</div>
+    <div class="score-number score-low">21</div>
+    <div class="score-trend trend-down">↓ 10% — Critical risk</div>
+  </div>
+  <div class="score-card fade-in">
+    <div class="score-label">Platform</div>
+    <div class="score-number score-mid">50</div>
+    <div class="score-trend trend-down">↓ 6% last 4 weeks</div>
+  </div>
+</div>
+
+<!-- CONCLUSION -->
+<div class="conclusion" id="summary">
+  <div class="conclusion-box fade-in">
+    <div class="conclusion-label">Core Audit Conclusion</div>
+    <p>Mash is <strong>using HubSpot</strong>, but the platform is not yet governed well enough to operate as the reliable commercial system of record for lead-to-deal-to-contract activity across events, publishing, sponsorship and future event-commerce workflows. The immediate priority is to stabilise the commercial operating model before the <strong>30 June 2026 Phase 1 go-live</strong>.</p>
+  </div>
+</div>
+
+<!-- KEY STATS -->
+<section style="background: #fff;" id="portal">
+  <div class="section-label">Current HubSpot Footprint</div>
+  <h2>The scale is there.<br>The governance isn't yet.</h2>
+  <p class="section-intro">Mash Media has a substantial HubSpot environment. The challenge is not capability — it's that the operating model hasn't fully caught up with the platform's potential.</p>
+
+  <div class="stat-row fade-in">
+    <div class="stat-item">
+      <div class="stat-val">330k+</div>
+      <div class="stat-lbl">Contacts</div>
+    </div>
+    <div class="stat-item">
+      <div class="stat-val">8,700+</div>
+      <div class="stat-lbl">Open Deals</div>
+    </div>
+    <div class="stat-item">
+      <div class="stat-val">1,228</div>
+      <div class="stat-lbl">Workflows (838 running)</div>
+    </div>
+    <div class="stat-item">
+      <div class="stat-val">67</div>
+      <div class="stat-lbl">Connected Apps</div>
+    </div>
+  </div>
+
+  <div class="data-table-wrap fade-in">
+    <table>
+      <thead>
+        <tr>
+          <th>Area</th>
+          <th>Metric</th>
+          <th>Audit Interpretation</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr><td>Contacts</td><td>330k+</td><td>Large CRM database requiring suppression and ownership rules</td></tr>
+        <tr><td>Companies</td><td>110k+</td><td>Substantial account database with 4,000+ duplicate records</td></tr>
+        <tr><td>Deals (total)</td><td>23.2k+</td><td>Significant commercial history — governance needed for active pipeline</td></tr>
+        <tr><td>Open deals</td><td class="metric-highlight">8,700+</td><td>Material active pipeline — 7.9k+ with no activity in 30 days</td></tr>
+        <tr><td>Deal pipelines</td><td>9</td><td>Requires rationalisation and governance review</td></tr>
+        <tr><td>Users</td><td>49 total, 40 active</td><td>Usage is present but consistency of activity capture needs work</td></tr>
+        <tr><td>Lists</td><td>4,471 (1k+ unused)</td><td>Significant legacy volume — active vs. retired review needed</td></tr>
+        <tr><td>Workflows</td><td>1,228 (74 with issues)</td><td>Active but unrationalised — legacy automation risk before new build</td></tr>
+        <tr><td>Products</td><td>446</td><td>Product governance required before finance automation</td></tr>
+        <tr><td>Quotes + Invoices</td><td>4,508 + 3,550</td><td>Historical mix across HubSpot and Xero — system-of-record unclear</td></tr>
+        <tr><td>Marketing Events</td><td>9 standard records</td><td>Underdeveloped for an events-led business of Mash's scale</td></tr>
+        <tr><td>AI</td><td>Enabled, limited usage</td><td>6 prospecting agents, no smart properties, no customer agent</td></tr>
+      </tbody>
+    </table>
+  </div>
+</section>
+
+<!-- KEY FINDINGS -->
+<section style="background: var(--beige);" id="findings">
+  <div class="section-label">Strategic Findings</div>
+  <h2>Seven areas.<br>One clear direction.</h2>
+  <p class="section-intro">The audit identified seven strategic themes. Data quality is the single most urgent priority — everything else depends on it.</p>
+
+  <div class="findings-grid">
+    <div class="finding-card risk fade-in">
+      <div class="finding-tag tag-risk">🔴 Critical Risk</div>
+      <h3>Data Quality — Primary Blocker</h3>
+      <p>A Data score of 21 is the clearest risk in the portal. Missing commercial fields across thousands of open deals means pipeline, reporting, routing, AI and enrichment will remain unreliable until data governance is established.</p>
+      <div class="finding-metric">
+        <strong>8,000+</strong> deals missing amount · <strong>4,800+</strong> missing close date · <strong>1,700+</strong> missing company · <strong>86k+</strong> hard bounced contacts
+      </div>
+    </div>
+
+    <div class="finding-card risk fade-in">
+      <div class="finding-tag tag-risk">🔴 Critical Risk</div>
+      <h3>Sales Pipeline Governance</h3>
+      <p>9 pipelines and 8,700+ open deals with no consistent stage criteria or activity standards. With 7.9k+ deals untouched for 30+ days, leadership visibility and forecasting are significantly weakened.</p>
+      <div class="finding-metric">
+        Sales score <strong>↓ 12%</strong> in 4 weeks · <strong>0</strong> meetings logged in 30 days · <strong>35</strong> calls logged (for 40 active users)
+      </div>
+    </div>
+
+    <div class="finding-card warning fade-in">
+      <div class="finding-tag tag-warning">🟡 Needs Attention</div>
+      <h3>Marketing Attribution Unproven</h3>
+      <p>Marketing scores 69 — the strongest area. But 112 campaigns and 89,663 influenced contacts don't prove revenue attribution. Campaign asset association, UTM governance and influenced revenue all require validation.</p>
+      <div class="finding-metric">
+        Campaign influenced revenue: <strong>Unknown</strong> · Asset usage quality: <strong>Unknown</strong>
+      </div>
+    </div>
+
+    <div class="finding-card warning fade-in">
+      <div class="finding-tag tag-warning">🟡 Needs Attention</div>
+      <h3>Automation Estate Unrationalised</h3>
+      <p>1,228 workflows, 838 running, 477 unused and 74 with active issues. Highest-enrolment workflows relate to unsubscribes and opt-outs — making suppression logic especially critical before any new outbound or enrichment programme.</p>
+      <div class="finding-metric">
+        <strong>477</strong> unused workflows · <strong>74</strong> workflows with issues · <strong>11,025</strong> April enrolments
+      </div>
+    </div>
+
+    <div class="finding-card warning fade-in">
+      <div class="finding-tag tag-warning">🟡 Needs Attention</div>
+      <h3>AI Enabled but Not Operationalised</h3>
+      <p>Settings are on. 6 prospecting agents exist. But no smart properties from the Data Agent are active, no Customer Agent is in use, and AI has not been embedded into any governed day-to-day processes.</p>
+      <div class="finding-metric">
+        Smart properties: <strong>None</strong> · Customer Agent: <strong>Not deployed</strong>
+      </div>
+    </div>
+
+    <div class="finding-card warning fade-in">
+      <div class="finding-tag tag-warning">🟡 Needs Attention</div>
+      <h3>Integration & Xero Governance</h3>
+      <p>67 connected apps, 2 active Xero integrations (one appearing switched off), and invoices historically created in both HubSpot and Xero. The finance system-of-record model must be clarified before any further automation is built.</p>
+      <div class="finding-metric">
+        <strong>2</strong> active Xero integrations · HubSpot Data Sync Xero: <strong>switched off</strong>
+      </div>
+    </div>
+
+    <div class="finding-card opportunity fade-in">
+      <div class="finding-tag tag-opportunity">🟢 Strategic Opportunity</div>
+      <h3>Event Architecture Underdeveloped</h3>
+      <p>For an events-led business, the current architecture is insufficient. 9 standard Marketing Event records with custom event objects that appear to be historical trials — no operative data model linking events, exhibitors, sponsors, products and revenue.</p>
+      <div class="finding-metric">
+        Standard Marketing Events: <strong>9</strong> · Custom event objects: <strong>20 (appear historical)</strong>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- DATA QUALITY DEEP DIVE -->
+<section style="background: #fff;" id="data">
+  <div class="section-label">Data Quality</div>
+  <h2>The numbers that<br>matter most.</h2>
+  <p class="section-intro">Data quality is not a hygiene issue only. It directly affects sales routing, reporting, forecasting, campaign segmentation, Clay enrichment, lifecycle management and AI accuracy.</p>
+
+  <div class="data-table-wrap fade-in">
+    <table>
+      <thead>
+        <tr>
+          <th>Data Issue</th>
+          <th>Volume</th>
+          <th>Commercial Impact</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr><td>Deals missing amount</td><td class="metric-highlight">8,000+</td><td>Pipeline value and forecasting are unreliable</td></tr>
+        <tr><td>Deals missing close date</td><td class="metric-highlight">4,800+</td><td>Revenue forecasting is impossible at this scale</td></tr>
+        <tr><td>Deals missing associated contact</td><td class="metric-highlight">1,000+</td><td>No follow-up, routing or automation can work reliably</td></tr>
+        <tr><td>Deals missing associated company</td><td class="metric-highlight">1,700+</td><td>Account-level reporting and ownership are broken</td></tr>
+        <tr><td>Contacts without owner</td><td class="metric-highlight">164k+</td><td>Unassigned contacts can't be nurtured or routed</td></tr>
+        <tr><td>Contacts with hard bounce</td><td class="metric-highlight">86k+</td><td>Deliverability risk on all outbound programmes</td></tr>
+        <tr><td>Duplicate contacts</td><td class="metric-highlight">5,000+</td><td>Inflated database, broken reporting, poor experience</td></tr>
+        <tr><td>Duplicate companies</td><td class="metric-highlight">4,000+</td><td>Account-level view is fragmented and unreliable</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="data-table-wrap fade-in">
+    <table>
+      <thead>
+        <tr>
+          <th>Sales Activity</th>
+          <th>Last 30 Days</th>
+          <th>What This Tells Us</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr><td>Logged emails</td><td>2,236</td><td>Email logging is happening — this is positive</td></tr>
+        <tr><td>Logged calls</td><td class="metric-highlight">35</td><td>Very low for 40 active sales users</td></tr>
+        <tr><td>Logged tasks</td><td class="metric-highlight">33</td><td>Suggests tasks are being done outside HubSpot</td></tr>
+        <tr><td>Logged notes</td><td class="metric-highlight">5</td><td>Deal context is not being captured</td></tr>
+        <tr><td>Logged meetings</td><td class="metric-highlight">0</td><td>Meetings are happening but not recorded in HubSpot</td></tr>
+        <tr><td>Overdue tasks</td><td class="metric-highlight">Thousands</td><td>Task management has broken down at scale</td></tr>
+      </tbody>
+    </table>
+  </div>
+</section>
+
+<!-- RECOMMENDED PHASES -->
+<section style="background: var(--beige);" id="phases">
+  <div class="section-label">Recommended Approach</div>
+  <h2>Two phases.<br>Clear priorities.</h2>
+  <p class="section-intro">Phase 1 creates commercial control by 30 June 2026. Phase 2 extends HubSpot into a broader event revenue and delivery architecture.</p>
+
+  <div class="phase-grid">
+    <div class="phase-card phase1 fade-in">
+      <div class="phase-number">Phase 1 — By 30 June 2026</div>
+      <h3>Commercial Control Foundation</h3>
+      <ul>
+        <li>Sales pipeline governance — rationalise structure, define stage criteria, required fields and loss reasons</li>
+        <li>Mandatory data capture — amount, close date, owner, contact + company association</li>
+        <li>Routing and inactivity management — lead assignment, inactive deal rules</li>
+        <li>Active pipeline data clean-up — focus on commercially active records first</li>
+        <li>Core reporting — pipeline, activity, data quality, lead source dashboards</li>
+        <li>Marketing Hub governance — campaign naming, UTMs, list hygiene, form audit</li>
+        <li>Workflow dependency review — subscription, suppression, lifecycle, routing</li>
+        <li>Clay enrichment pilot — controlled writeback with confidence rules</li>
+        <li>Limited AI use cases — summaries, qualification support, follow-up drafts</li>
+        <li>Contracts + payments discovery — map current process, MVP only</li>
+        <li>Integration governance — review Xero model before further automation</li>
+        <li>Training and adoption programme</li>
+      </ul>
+    </div>
+
+    <div class="phase-card phase2 fade-in">
+      <div class="phase-number">Phase 2 — Beyond June 2026</div>
+      <h3>Event-Commerce Architecture</h3>
+      <ul>
+        <li>Full ExpoFP integration — availability, reservations, bookings, payment failure handling</li>
+        <li>Advanced event architecture — event editions, stand or booking custom objects</li>
+        <li>Full Xero and finance automation — invoice ownership, reconciliation, error handling</li>
+        <li>Deeper campaign, event and revenue attribution framework</li>
+        <li>Advanced AI agents and customer-facing AI journeys</li>
+        <li>Service Hub expansion and customer service process design</li>
+        <li>Broader workflow rationalisation and legacy automation retirement</li>
+        <li>Historic data remediation beyond active commercial records</li>
+        <li>Integration estate simplification and private app review</li>
+      </ul>
+    </div>
+  </div>
+
+  <div style="margin-top: 32px; background: var(--black); color: #fff; border-radius: 16px; padding: 32px 40px;" class="fade-in">
+    <div style="font-size: 12px; letter-spacing: 1.5px; text-transform: uppercase; color: var(--yellow); margin-bottom: 10px; font-weight: 600;">Phase 1 Success Measure</div>
+    <p style="font-size: 17px; line-height: 1.7; color: rgba(255,255,255,0.85);">Mash should be able to trust HubSpot to show <strong style="color: var(--yellow);">who owns each active opportunity, what it is worth, when it is expected to close, who is associated, what the next action is, whether it is inactive, where it came from and what contract/payment status applies.</strong></p>
+  </div>
+</section>
+
+<!-- ARCHITECTURE PRINCIPLES -->
+<section style="background: #fff;" id="principles">
+  <div class="section-label">Target Architecture</div>
+  <h2>Seven principles<br>to build toward.</h2>
+  <p class="section-intro">These principles should guide every configuration decision in Phase 1 and Phase 2.</p>
+
+  <div class="principles-grid">
+    <div class="principle-card fade-in">
+      <h4>HubSpot as Commercial System of Record</h4>
+      <p>HubSpot governs contacts, companies, deals, activities, lifecycle, pipeline, campaign source and commercial reporting. It does not need to own every finance or delivery record.</p>
+    </div>
+    <div class="principle-card fade-in">
+      <h4>Xero as Finance System of Record</h4>
+      <p>Given existing Xero connections and invoice history, Xero should likely remain the finance source of truth, with HubSpot holding commercial and visibility data — subject to discovery validation.</p>
+    </div>
+    <div class="principle-card fade-in">
+      <h4>Controlled Clay Enrichment</h4>
+      <p>Clay should enrich selected segments through a pilot, with strict writeback rules, source tracking, confidence scoring and no uncontrolled overwrites of trusted HubSpot fields.</p>
+    </div>
+    <div class="principle-card fade-in">
+      <h4>AI Inside Governed Workflows</h4>
+      <p>AI should assist users and managers within clearly defined handoff rules — supporting qualification, summarisation, routing and follow-up drafts. Autonomous AI actions come later once data quality is stable.</p>
+    </div>
+    <div class="principle-card fade-in">
+      <h4>Event Model Before ExpoFP</h4>
+      <p>Mash must define event, edition, exhibitor, sponsor and product relationships inside HubSpot before building any floor plan integration. Architecture first, integration second.</p>
+    </div>
+    <div class="principle-card fade-in">
+      <h4>Reporting from Governed Process</h4>
+      <p>Dashboards should be built only after required fields, associations and stage rules are defined. Building reports before governance simply exposes data quality problems on a screen.</p>
+    </div>
+    <div class="principle-card fade-in" style="grid-column: span 1;">
+      <h4>Integration Governance Before Expansion</h4>
+      <p>Existing connected apps, Xero integrations and private apps must be reviewed and rationalised before adding new automation or middleware. Adding complexity before resolving existing issues creates compounding risk.</p>
+    </div>
+  </div>
+</section>
+
+<!-- VALIDATION QUESTIONS -->
+<section class="dark-section" id="questions">
+  <div class="section-label">Discovery Questions</div>
+  <h2>What we need to<br>validate together.</h2>
+  <p class="section-intro">Several areas require confirmation during today's findings call before final Phase 1 scope is locked.</p>
+
+  <div class="questions-accordion fade-in">
+    <div class="q-group">
+      <div class="q-group-label">Sales Process</div>
+      <div class="q-item"><div class="q-dot"></div>Are the proposed pipeline stages agreed by sales leadership?</div>
+      <div class="q-item"><div class="q-dot"></div>Do exhibitions, sponsorship, awards and publishing follow the same sales process?</div>
+      <div class="q-item"><div class="q-dot"></div>What data should block a deal from moving stage?</div>
+      <div class="q-item"><div class="q-dot"></div>What should happen when an open deal has no activity for 30 days?</div>
+      <div class="q-item"><div class="q-dot"></div>Which activity types must sales users log in HubSpot?</div>
+    </div>
+
+    <div class="q-group">
+      <div class="q-group-label">Marketing Operations</div>
+      <div class="q-item"><div class="q-dot"></div>How are campaigns currently created and governed?</div>
+      <div class="q-item"><div class="q-dot"></div>What attribution reports are currently trusted by the business?</div>
+      <div class="q-item"><div class="q-dot"></div>Which forms and lists are still business-critical?</div>
+      <div class="q-item"><div class="q-dot"></div>How should event, publication and awards campaigns be tracked differently?</div>
+    </div>
+
+    <div class="q-group">
+      <div class="q-group-label">Data & Enrichment</div>
+      <div class="q-item"><div class="q-dot"></div>Which fields are trusted today? What does the team rely on?</div>
+      <div class="q-item"><div class="q-dot"></div>What should Clay enrich and what should it never overwrite?</div>
+      <div class="q-item"><div class="q-dot"></div>Which segments should be included in the Clay pilot?</div>
+      <div class="q-item"><div class="q-dot"></div>What duplicate rules should apply to contacts and companies?</div>
+    </div>
+
+    <div class="q-group">
+      <div class="q-group-label">Contracts, Payments & Xero</div>
+      <div class="q-item"><div class="q-dot"></div>Where are contracts created today? What's the current flow?</div>
+      <div class="q-item"><div class="q-dot"></div>Which Xero integration is authoritative?</div>
+      <div class="q-item"><div class="q-dot"></div>Should invoices be created in Xero, HubSpot or both?</div>
+      <div class="q-item"><div class="q-dot"></div>What approval rules apply to discounts, terms and payment schedules?</div>
+    </div>
+
+    <div class="q-group">
+      <div class="q-group-label">ExpoFP & Event Architecture</div>
+      <div class="q-item"><div class="q-dot"></div>Is ExpoFP intended for enquiries, reservations or direct bookings?</div>
+      <div class="q-item"><div class="q-dot"></div>What system should own stand availability?</div>
+      <div class="q-item"><div class="q-dot"></div>Should stand selection create a HubSpot deal automatically?</div>
+      <div class="q-item"><div class="q-dot"></div>What happens if a booking is abandoned or a payment fails?</div>
+    </div>
+
+    <div class="q-group">
+      <div class="q-group-label">AI</div>
+      <div class="q-item"><div class="q-dot"></div>Which AI use cases need to be live by 30 June?</div>
+      <div class="q-item"><div class="q-dot"></div>Should AI recommend actions or take actions autonomously?</div>
+      <div class="q-item"><div class="q-dot"></div>Where is human approval mandatory in any AI-assisted process?</div>
+      <div class="q-item"><div class="q-dot"></div>Which teams should use AI first?</div>
+    </div>
+  </div>
+</section>
+
+<!-- NEXT STEPS -->
+<div class="next-steps" id="nextsteps">
+  <div class="section-label">Recommended Next Steps</div>
+  <h2 style="color: #fff;">How we proceed<br>from here.</h2>
+  <p style="font-size: 17px; color: rgba(255,255,255,0.55); max-width: 560px; margin-bottom: 0; line-height: 1.7;">The goal of today's call is agreement on priorities — not to solve everything at once. One practical Phase 1 scope, one clear go-live target.</p>
+
+  <div class="steps-list">
+    <div class="step-card fade-in">
+      <div class="step-num">1</div>
+      <h4>Findings & Validation Call</h4>
+      <p>Use today's call to confirm priorities, validate findings and agree Phase 1 versus Phase 2 boundaries.</p>
+    </div>
+    <div class="step-card fade-in">
+      <div class="step-num">2</div>
+      <h4>Solution Design Sprint</h4>
+      <p>Confirm the future process, data requirements, workflow dependencies, integration model and Phase 1 build backlog.</p>
+    </div>
+    <div class="step-card fade-in">
+      <div class="step-num">3</div>
+      <h4>Phase 1 Proposal</h4>
+      <p>A priced proposal covering pipeline governance, data quality controls, dashboards, Marketing Hub governance, Clay pilot, limited AI and contract/payment discovery.</p>
+    </div>
+    <div class="step-card fade-in">
+      <div class="step-num">4</div>
+      <h4>Phase 1 Build & Enablement</h4>
+      <p>Implement the agreed foundation, train teams and support go-live before 30 June 2026.</p>
+    </div>
+    <div class="step-card fade-in">
+      <div class="step-num">5</div>
+      <h4>Phase 2 Roadmap</h4>
+      <p>Define the roadmap for ExpoFP, Xero, finance automation, event architecture, attribution, Service Hub and advanced AI.</p>
+    </div>
+  </div>
+
+  <div style="margin-top: 48px; padding: 32px 40px; background: rgba(254,245,172,0.08); border: 1px solid rgba(254,245,172,0.2); border-radius: 16px; max-width: 640px;" class="fade-in">
+    <div style="font-size: 12px; letter-spacing: 1.5px; text-transform: uppercase; color: var(--yellow); margin-bottom: 10px; font-weight: 600;">Recommended Call Outcome</div>
+    <p style="font-size: 16px; color: rgba(255,255,255,0.8); line-height: 1.7;">The findings call should end with <strong style="color: var(--yellow);">agreement on the priority problem areas</strong>, confirmation that Phase 1 should focus on commercial control, and <strong style="color: var(--yellow);">permission for BBD Boom to prepare a scoped proposal with pricing</strong>.</p>
+  </div>
+
+  <div style="margin-top: 40px; text-align: center;">
+    <p style="color: rgba(255,255,255,0.4); font-size: 14px; margin-bottom: 16px;">Any questions before we start?</p>
+    <a href="mailto:adam@bbdboom.com" style="display: inline-block; background: var(--yellow); color: var(--black); font-weight: 700; font-size: 15px; padding: 14px 32px; border-radius: 100px; text-decoration: none; transition: transform 0.2s;">adam@bbdboom.com</a>
+  </div>
+</div>
+
+<!-- FOOTER -->
+<footer>
+  <p>Prepared by <strong style="color: rgba(255,255,255,0.7);">BBD Boom</strong> — HubSpot Elite Solutions Partner, Siloy Group · <a href="https://www.bbdboom.com">www.bbdboom.com</a></p>
+  <p class="footer-partners">Siloy Ecosystem: Invise · Webs · Trialta · Chili Digital · Conversion Crew · Vipu · BBD Boom · ProsperoHub · LEVR</p>
+  <p style="margin-top: 12px; font-size: 11px; color: rgba(255,255,255,0.2);">Confidential — prepared for Mash Media · May 2026 · Point-in-time audit findings</p>
+</footer>
+
+<script>
+  // Fade in on scroll
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(e => {
+      if (e.isIntersecting) {
+        e.target.classList.add('visible');
+      }
+    });
+  }, { threshold: 0.1 });
+
+  document.querySelectorAll('.fade-in').forEach(el => observer.observe(el));
+
+  // Active nav
+  const sections = document.querySelectorAll('section[id], div[id]');
+  window.addEventListener('scroll', () => {
+    let current = '';
+    sections.forEach(s => {
+      if (window.scrollY >= s.offsetTop - 80) current = s.id;
+    });
+    document.querySelectorAll('.nav-links a').forEach(a => {
+      a.style.color = a.getAttribute('href') === '#' + current
+        ? 'var(--yellow)' : 'rgba(255,255,255,0.6)';
+    });
+  });
+</script>
+</body>
+</html>
